@@ -68,6 +68,23 @@ server.delete('/smurfs/:id', (req, res) => {
   const { id } = req.params;
   const foundSmurf = smurfs.find(smurf => smurf.id === id);
   
+  if (foundSmurf) {
+    const SmurfRemoved = { ...foundSmurf }; // spread operator
+    smurfs = smurfs.filter(smurf => smurf.id != id);
+    res.status(200).json({ SmurfRemoved });
+  } else {
+    sendUserError('No smurf by that ID exists here, silly!');
+  }
+});
+
+server.listen(port, err => {
+  if (err) console.log(err);
+  console.log(`server is quietly listening on port ${port}`);
+});
+// so tell me more about a server listening...
+// it's listening, or waiting for some sort of http/ajax request from 
+// the client, right?
+
 
 
 
