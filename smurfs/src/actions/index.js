@@ -1,15 +1,24 @@
-/* 
-  Action Types Go Here!
-  Be sure to export each action type so you can pull it into your reducer
-*/
+import axios from 'axios'
+import {
+  FETCHING,
+  CREATING,
+  UPDATING,
+  DELETING,
+  SUCCESS,
+  ERROR,
+  EDITING,
+  CANCEL_EDIT,
+  INPUT_CHANGE,
+} from './types' // so these are just strings that we designate as actions?
+// strings that are created in another file?
+const ROOT_URL = 'http://localhost:3333';
+const successWithPayload = data => ({ type: SUCCESS, payload: data });
+const sendErrorMessage = error => ({ type: ERROR, error: error });
+export const inputChange = change => ({ type: INPUT_CHANGE, payload: change })
 
-/*
-  For this project you'll need at least 2 action creators for the main portion,
-   and 2 more for the stretch problem.
-   Be sure to include action types for each type of action creator. Also, be sure to mind
-     the "pending" states like, fetching, creating, updating and deleting.
-   C - addSmurf
-   R - getSmurfs
-   U - updateSmurf
-   D - deleteSmurf
-*/
+export const getSmurfs = () => dispatch => {
+  dispatch({ type: FETCHING })
+  axios.get(`${ROOT_URL}/smurfs`)
+    .then(({ data }) => dispatch(successWithPayload(data)))
+    .catch(error => dispatch(sendErrorMessage(error)))
+}
