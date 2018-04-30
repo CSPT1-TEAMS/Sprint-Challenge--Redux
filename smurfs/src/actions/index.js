@@ -22,3 +22,16 @@ export const getSmurfs = () => dispatch => {
     .then(({ data }) => dispatch(successWithPayload(data)))
     .catch(error => dispatch(sendErrorMessage(error)))
 }
+
+export const addSmurf = smurf => dispatch => {
+  dispatch({ type: CREATING })
+  axios.post(`${ROOT_URL}/smurfs`, smurf)
+    .then(({ data }) => dispatch(successWithPayload(data)))
+    .catch(error => dispatch(sendErrorMessage(error)))
+}
+
+export const editSmurf = id => ({ type: EDITING, payload: id })
+export const cancelEdit = () => ({ type: CANCEL_EDIT })
+
+export const updateSmurf = smurf => dispatch => {
+  const { id, name, age, height } = smurf;
