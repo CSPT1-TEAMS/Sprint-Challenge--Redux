@@ -6,15 +6,20 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-const sendUserError = (msg, res) => {
-  res.status(422);
-  res.json({ Error: msg });
+// so lines 1-7 import some things and then set up our server.
+// express is just a server, I guess, but a little more explanation 
+// would be nice perhaps. what is cors?
+
+const send UserError = (msg, res) => {
+  res.status(422); // what is 422?
+  res.json({ Error: msg }); // JavaScript Object Notation but what does it mean?
   return;
 };
 
 let smurfs = [];
-server.get('/smurfs', (req, res) => {
-  res.json(smurfs);
+// from server get resource at url '/smurfs'
+server.get('/smurfs', (req, res) => {  
+  res.json(smurfs); // from response jsonify everything from smurfs?
 });
 let smurfId = 0;
 
@@ -23,7 +28,7 @@ server.post('/smurfs', (req, res) => {
   const newSmurf = { name, age, height, id: smurfId };
   if (!name || !age || !height) {
     return sendUserError(
-      'Ya gone did smurfed! Name/Age/Height are all required to create a smurf in the smurf DB.',
+      'Ya got smurffed the frack outta there!! Name/Age/Height silly!'
       res
     );
   }
@@ -32,11 +37,11 @@ server.post('/smurfs', (req, res) => {
   };
   if (smurfs.find(findSmurfByName)) {
     return sendUserError(
-      `Ya gone did smurfed! ${name} already exists in the smurf DB.`,
+      'Ya got smurffed big time! ${name} already exists!'
       res
     );
   }
-
+  
   smurfs.push(newSmurf);
   smurfId++;
   res.json(smurfs);
@@ -46,11 +51,11 @@ server.put('/smurfs/:id', (req, res) => {
   const { id } = req.params;
   const { name, age, height } = req.body;
   const findSmurfById = smurf => {
-    return smurf.id == id;
+    return smurf.id === id;
   };
   const foundSmurf = smurfs.find(findSmurfById);
   if (!foundSmurf) {
-    return sendUserError('No Smurf found by that ID', res);
+    return sendUserError('No smurf by that ID found!', res);
   } else {
     if (name) foundSmurf.name = name;
     if (age) foundSmurf.age = age;
@@ -61,18 +66,58 @@ server.put('/smurfs/:id', (req, res) => {
 
 server.delete('/smurfs/:id', (req, res) => {
   const { id } = req.params;
-  const foundSmurf = smurfs.find(smurf => smurf.id == id);
+  const foundSmurf = smurfs.find(smurf => smurf.id === id);
+  
 
-  if (foundSmurf) {
-    const SmurfRemoved = { ...foundSmurf };
-    smurfs = smurfs.filter(smurf => smurf.id != id);
-    res.status(200).json({ SmurfRemoved });
-  } else {
-    sendUserError('No smurf by that ID exists in the smurf DB', res);
-  }
-});
 
-server.listen(port, err => {
-  if (err) console.log(err);
-  console.log(`server is listening on port ${port}`);
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
