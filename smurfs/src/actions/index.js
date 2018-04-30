@@ -35,3 +35,15 @@ export const cancelEdit = () => ({ type: CANCEL_EDIT })
 
 export const updateSmurf = smurf => dispatch => {
   const { id, name, age, height } = smurf;
+  dispatch({ type: UPDATING })
+  axios.put(`${ROOT_URL}/smurfs/${id}`, { name, age, height })
+    .then(_ => dispatch(getSmurfs())) // what's up with the underscore?
+    .catch(error => dispatch(sendErrorMessage(error)))
+}
+
+export const deleteSmurf = id => dispatch => {
+  dispatch({ type: DELETING })
+  axios.delete(`${ROOT_URL}/smurfs/${id}`)
+    .then(_ => dispatch(getSmurfs()))
+    .catch(error => dispatch(sendErrorMessage(error)))
+}
